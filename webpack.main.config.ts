@@ -1,0 +1,20 @@
+import type { Configuration } from 'webpack';
+
+import { rules } from './webpack.rules';
+
+export const mainConfig: Configuration = {
+  /**
+   * This is the main entry point for your application, it's the first file
+   * that runs in the main process.
+   */
+  entry: './src/electron/index.ts',
+  // Put your normal webpack config below here
+  module: {
+    rules,
+  },
+  resolve: {
+    extensions: ['.js', '.ts', '.jsx', '.tsx', '.css', '.json'],
+  },
+  /** Make sure to do this if there is any issue building native module for electron */
+  externals: ['escpos-usb', 'escpos'],
+};
