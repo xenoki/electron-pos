@@ -28,6 +28,8 @@
 
 import '../client/index.css';
 import '../client/index.tsx';
+import '../client/app/hooks';
+import '../client/app/store';
 
 export interface Credential {
   username: string;

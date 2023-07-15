@@ -1,21 +1,30 @@
-import { useEffect, useState } from 'react';
-import LoginForm from '../components/LoginForm';
-import { sleep } from '../../libs';
+import { useEffect } from 'react';
+import Hero from '../components/hero/Hero';
+import Modal from '../components/modal/Modal';
+import NavBar from '../components/navbar/NavBar';
+import Form from '../components/form';
+import useModal from '../hooks/useModal';
+import { useAppSelector } from '../app/hooks';
+import { selectName } from './info/infoSlice';
 
+/**
+ * Point of Sale Authentication Screen
+ * @returns { JSX.Element }
+ */
 export default function Login() {
-  const [open, setOpen] = useState(false);
+  const { open, openModal } = useModal();
 
   useEffect(() => {
-    setTimeout(() => {
-      setOpen(true);
-    }, 300);
-  }, [open]);
+    openModal();
+    console.log('hello', { name });
+  }, []);
 
   return (
-    <div className={`modal ${open && 'modal-open'}`}>
-      <div className='modal-box'>
-        <LoginForm subscription={{ submitting: true, pristine: true }} />
-      </div>
-    </div>
+    <Hero>
+      <Modal open={open}>
+        <NavBar title='Capital Pure Water' />
+        <Form.Login subscription={{ submitting: true, pristine: true }} />
+      </Modal>
+    </Hero>
   );
 }

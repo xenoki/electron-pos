@@ -1,19 +1,29 @@
 import { contextBridge, ipcRenderer } from 'electron';
+import { CHANNEL } from './channel';
 
-contextBridge.exposeInMainWorld('electronAPI', {
-  auth: (credential: string) => ipcRenderer.invoke('auth', credential),
-  print: (data: any) => ipcRenderer.invoke('print', data),
-  quit: () => ipcRenderer.invoke('quit'),
-  info: () => ipcRenderer.invoke('info'),
-  backup: () => ipcRenderer.invoke('backup'),
-  find: () => ipcRenderer.invoke('find'),
-  duplicate: () => ipcRenderer.invoke('duplicate'),
-  addMembership: () => ipcRenderer.invoke('addMembership'),
-  latestMembershipRecord: () => ipcRenderer.invoke('latestMembershipRecord'),
-  edit: () => ipcRenderer.invoke('edit'),
-  delete: () => ipcRenderer.invoke('delete'),
-  buy: () => ipcRenderer.invoke('buy'),
-  renew: () => ipcRenderer.invoke('renew'),
-  history: () => ipcRenderer.invoke('history'),
-  printReport: () => ipcRenderer.invoke('printReport'),
+/** Make sure only allow channel can be use to communicate to ipcMain */
+const validChannels = Object.values(CHANNEL);
+
+/** allow react to communicate with electron ipcMain */
+contextBridge.exposeInMainWorld('api', {
+  invoke: <T>(channel: CHANNEL, data: T): Promise<T> => {
+    if (validChannels.includes(channel))
+      return ipcRenderer.invoke(channel, data);
+  },
+  send: (channel: CHANNEL, data: any) => {
+    if (validChannels.includes(channel)) {
+      ipcRenderer.send(channel, data);
+    }
+  },
+  on: (channel: CHANNEL, callback: (data: any) => void) => {
+    if (validChannels.includes(channel)) {
+      const newCallback = (_: any, data: any) => callback(data);
+      ipcRenderer.on(channel, newCallback);
+    }
+  },
+  removeAllListeners: (channel: CHANNEL) => {
+    if (validChannels.includes(channel)) {
+      ipcRenderer.removeAllListeners(channel);
+    }
+  },
 });

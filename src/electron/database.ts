@@ -4,10 +4,11 @@ import isDev from 'electron-is-dev';
 
 export default function loadDatabase(app: Electron.App, file: string) {
   const dbFile = isDev
-    ? path.join(app.getAppPath(), `src/db/${file}`)
-    : path.join(process.resourcesPath, file);
+    ? path.join(app.getAppPath(), `src/db/${file}.db`)
+    : path.join(process.resourcesPath, file + '.db');
 
-  const db = new Database(`${dbFile}.db`);
+  // const db = new Database(`${dbFile}.db`);
+  const db = new Database(dbFile);
 
   /** Create memberships table*/
   db.prepare(
@@ -52,5 +53,5 @@ export default function loadDatabase(app: Electron.App, file: string) {
     ).run();
   }
 
-  return db;
+  return { db, dbFile };
 }

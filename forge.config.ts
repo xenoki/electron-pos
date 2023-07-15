@@ -36,6 +36,7 @@ const config: ForgeConfig = {
         ],
       },
     }),
+    /** Needs to configure this for production app to use pos printer */
     new ForgeExternalsPlugin({
       externals: ['escpos', 'escpos-usb', 'usb'],
       includeDeps: true,
