@@ -1,7 +1,7 @@
 declare global {
   interface Window {
     api: {
-      invoke: <T>(channel: CHANNEL, data?: any) => Promise<T>;
+      invoke: <T>(channel: CHANNEL | string, data?: any) => Promise<T>;
       on: (channel: CHANNEL, callback: (data: any) => void) => void;
       send: (channel: CHANNEL, data: any) => void;
       removeAllListeners: (channel: CHANNEL) => void;

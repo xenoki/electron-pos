@@ -1,6 +1,6 @@
 {
   "name": "electron-pos-ts",
-  "productName": "Electron POS",
+  "productName": "Senter POS",
   "version": "1.0.0",
   "description": "My Electron application description",
   "main": ".webpack/main",
