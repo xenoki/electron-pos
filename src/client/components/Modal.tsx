@@ -8,7 +8,8 @@ type Props = {
 export default function Modal({ open = false, children }: Props) {
   return (
     <div className={`modal ${open && 'modal-open'}`}>
-      <div className='modal-box  max-w-2xl'>{children}</div>
+      {/* <div className='modal-box max-w-full'>{children}</div> */}
+      <div className='modal-box max-w-fit'>{children}</div>
     </div>
   );
 }

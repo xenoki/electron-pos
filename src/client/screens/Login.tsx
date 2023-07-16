@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
 import Modal from '../components/Modal';
-import {
-  AiOutlineLogin,
-  AiOutlinePrinter,
-  AiOutlineUser,
-  AiOutlineLock,
-} from 'react-icons/ai';
+import PowerButton from '../components/PowerButton';
+import PrintButton from '../components/PrintButton';
+import LoginButton from '../components/LoginButton';
+import PasswordInput from '../components/PasswordInput';
+import Username from '../components/UsernameInput';
 
 export default function Login() {
   const [open, setOpen] = useState(false);
@@ -19,29 +18,12 @@ export default function Login() {
   return (
     <main className='flex min-h-screen items-center justify-center'>
       <Modal open={open}>
-        <form className='flex flex-row justify-around'>
-          <div className='group relative'>
-            <AiOutlineUser className='absolute left-3 top-1/2 -mt-2.5 w-5 h-5' />
-            <input
-              className='input input-bordered bg-base-200 grow pl-10'
-              type='text'
-              placeholder='enter username'
-            />
-          </div>
-          <div className='group relative'>
-            <AiOutlineLock className='absolute left-3 top-1/2 -mt-2.5 w-5 h-5' />
-            <input
-              className='input input-bordered bg-base-200 grow pl-10'
-              type='password'
-              placeholder='enter password'
-            />
-          </div>
-          <button className='btn-primary btn'>
-            <AiOutlineLogin className='w-5 h-5' />
-          </button>
-          <button className='btn-secondary btn'>
-            <AiOutlinePrinter className='w-5 h-5' />
-          </button>
+        <form className='flex flex-row gap-2'>
+          <Username />
+          <PasswordInput />
+          <LoginButton />
+          <PrintButton />
+          <PowerButton />
         </form>
       </Modal>
     </main>
