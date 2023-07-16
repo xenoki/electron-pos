@@ -8,6 +8,9 @@ import { useEffect } from 'react';
 import { getAppInfo, selectName } from './features/info/infoSlice';
 import { useAppDispatch, useAppSelector } from './app/hooks';
 
+/** New Component */
+import Login from './screens/Login';
+
 export default function App() {
   const dispatch = useAppDispatch();
 
@@ -17,7 +20,7 @@ export default function App() {
 
   return (
     <Routes>
-      <Route path='/' element={<LoginScreen />} />
+      <Route path='/' element={<Login />} />
       <Route path='/dashboard' element={<Dashboard />} />
       <Route path='/account' element={<Account />} />
       <Route path='/purchase' element={<Purchase />} />
